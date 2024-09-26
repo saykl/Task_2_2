@@ -9,13 +9,12 @@ class Program
     int[] ages = new int[3];
     string[] cities = new string[3];
 
-    // Массивы для хранения вопросов и типов данных
     string[] prompts = { "Имя", "Возраст", "Город" };
     Action<int>[] inputActions = {
-            index => names[index] = Console.ReadLine(),
-            index => ages[index] = int.Parse(Console.ReadLine()),
-            index => cities[index] = Console.ReadLine()
-        };
+                index => names[index] = Console.ReadLine(),
+                index => ages[index] = int.Parse(Console.ReadLine()),
+                index => cities[index] = Console.ReadLine()
+            };
 
     // Ввод данных для 3 пользователей
     for (int userCount = 0; userCount < 3; userCount++)
@@ -29,25 +28,18 @@ class Program
       }
     }
 
-    // Запрос имени для вывода информации
-    Console.Write("Введите имя пользователя, данные которого хотите вывести: ");
-    string searchName = Console.ReadLine();
+    // Запрос порядкового номера для вывода информации
+    Console.Write("Введите порядковый номер пользователя (1-3), данные которого хотите вывести: ");
+    int userIndex;
 
-    // Поиск и вывод данных
-    bool userFound = false;
-    for (int i = 0; i < 3; i++)
+    if (int.TryParse(Console.ReadLine(), out userIndex) && userIndex >= 1 && userIndex <= 3)
     {
-      if (names[i].Equals(searchName, StringComparison.OrdinalIgnoreCase))
-      {
-        Console.WriteLine($"Имя: {names[i]}, Возраст: {ages[i]}, Город: {cities[i]}");
-        userFound = true;
-        break;
-      }
+      int index = userIndex - 1; // Приводим к индексу массива
+      Console.WriteLine($"Имя: {names[index]}, Возраст: {ages[index]}, Город: {cities[index]}");
     }
-
-    if (!userFound)
+    else
     {
-      Console.WriteLine("Пользователь не найден.");
+      Console.WriteLine("Некорректный номер пользователя.");
     }
   }
 }
